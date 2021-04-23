@@ -1,5 +1,6 @@
 const express = require('express'),
       morgan = require('morgan');
+
 const app  = express();
 
 let topTenMovies = [
@@ -36,6 +37,13 @@ let topTenMovies = [
 ];
 
 app.use(express.static('public'));
+
+app.use(morgan('common'));
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong');
+});
 
 //Get requests
 app.get('/', (req, res) => {
