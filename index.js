@@ -36,9 +36,9 @@ let topTenMovies = [
   },
 ];
 
-app.use(express.static('public'));
-
 app.use(morgan('common'));
+
+app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
