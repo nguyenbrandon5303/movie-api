@@ -11,6 +11,7 @@
       td, th {
         border: 1px solid;
         text-align: center;
+        padding: 10px;
       }
     </style>
   </head>
@@ -24,52 +25,119 @@
       <tr>
         <th>REQUEST</th>
         <th>URL</th>
-        <th>RESPONSE</th>
+        <th>HTTP METHOD</th>
+        <th>QUERY PARAMETERS</th>
+        <th>REQUEST BODY DATA FORMAT</th>
+        <th>RESPONSE DATA FORMAT</th>
       </tr>
       <tr>
-        <td>GET</td>
-        <td>/movies</td>
         <td>Return a list of ALL movies to the user</td>
+        <td>/movies</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>None</td>
+        <td>A JSON object holding data about all movies</td>
       </tr>
       <tr>
-        <td>GET</td>
-        <td>/movies/[TITLE]</td>
         <td>Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</td>
+        <td>/movies/[TITLE]</td>
+        <td>GET</td>
+        <td>/movies/:TITLE</td>
+        <td>None</td>
+        <td>A JSON object holding data on single movie. Example: <br>
+            title: "The Godfather" <br>
+            description: "The Godfather is an American film series that consists of three crime films directed by Francis Ford Coppola inspired by the 1969 novel of the same name by Italian American author Mario Puzo." <br>
+            genre: "Crime, Drama" <br>
+            director: "Francis Ford Coppola" <br>
+        </td>
       </tr>
       <tr>
-        <td>GET</td>
-        <td>/movies/[GENRE]/[TITLE]</td>
         <td>Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
-      </tr>
-      <tr>
+        <td>/movies/[GENRE]/[TITLE]</td>
         <td>GET</td>
-        <td>/movies/directors/[NAME]</td>
+        <td>/movies/:GENRE/:TITLE</td>
+        <td>None</td>
+        <td>A JSON object holding the description of a genre by name/title. Example: <br>
+            title: "Crime" <br>
+            description: "Crime films is a film genre inspired by and analogous to the crime fiction literary genre. Films of this genre generally involve various aspects of crime and its detection." <br>
+        </td>
+      </tr>
+      <tr>
         <td>Return data about a director (bio, birth year, death year) by name</td>
+        <td>/movies/directors/[NAME]</td>
+        <td>GET</td>
+        <td>/movies/directors/:NAME</td>
+        <td>None</td>
+        <td>A JSON object holding the data of the director by name. Example: <br>
+            name: "Francis Ford Coppola" <br>
+            birth year: "1962" <br>
+            death year: "present" <br>
+        </td>
       </tr>
       <tr>
-        <td>POST</td>
-        <td>/users</td>
         <td>Allow new users to register</td>
+        <td>/users</td>
+        <td>POST</td>
+        <td>None</td>
+        <td>A JSON object holding data about the new user structured like: <br>
+            username: "johnsmith448" <br>
+            password: "password123" <br>
+            email: johnsmith448@gmail.com <br>
+        </td>
+        <td>A JSON object holding data about the new user with an ID: <br>
+            id: 3 <br>
+            username: "johnsmith448" <br>
+            password: "password123" <br>
+            email: johnsmith448@gmail.com <br>
+        </td>
       </tr>
       <tr>
-        <td>PUT</td>
-        <td>/users/[USERNAME]</td>
         <td>Allow users to update their user info (username)</td>
-      </tr>
-      <tr>
-        <td>PUT</td>
-        <td>/users/[USERNAME]/movies/[TITLE]</td>
-        <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</td>
-      </tr>
-      <tr>
-        <td>DELETE</td>
-        <td>/users/[USERNAME]/movies/[TITLE]</td>
-        <td>Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)</td>
-      </tr>
-      <tr>
-        <td>DELETE</td>
         <td>/users/[USERNAME]</td>
+        <td>PUT</td>
+        <td>/users/:USERNAME</td>
+        <td>A JSON object holding the new username structured like: <br>
+            username: "newjohnsmith448" <br>
+        </td>
+        <td>A JSON object holding the new username: <br>
+            username: "newjohnsmith448" <br>
+        </td>
+      </tr>
+      <tr>
+        <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</td>
+        <td>/users/[USERNAME]/movies/[TITLE]</td>
+        <td>PUT</td>
+        <td>/users/:USERNAME/movies/:TITLE</td>
+        <td>A JSON object holding data on the movie to be added structured like: <br>
+            title: "Scarface" <br>
+        </td>
+        <td>A JSON object holding data on the movie to be added: <br>
+            title: "Scarface" <br>
+        </td>
+      </tr>
+      <tr>
+        <td>Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)</td>
+        <td>/users/[USERNAME]/movies/[TITLE]</td>
+        <td>DELETE</td>
+        <td>/users/:USERNAME/movies/:TITLE</td>
+        <td>A JSON object holding data on movie to be removed from user's list structured like: <br>
+            title: "Scarface" <br>
+        </td>
+        <td>A JSON object holding data on movie to be removed from user's list: <br>
+            title: "Scarface" <br>
+        </td>
+      </tr>
+      <tr>
         <td>Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)</td>
+        <td>/users/[USERNAME]</td>
+        <td>DELETE</td>
+        <td>/users/:USERNAME</td>
+        <td>A JSON object holding data on user that wish to be deregistered structured like: <br>
+            username: "johnsmith448" <br>
+        </td>
+        <td>A JSON object holding data on user that wish to be deregistered: <br>
+            username: "johnsmith448" <br>
+        </td>
       </tr>
     </table>
   </body>
