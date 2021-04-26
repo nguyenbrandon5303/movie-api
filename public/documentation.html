@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>movie-api Documentation</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      td, th {
+        border: 1px solid;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>movie-api Documentation</h1>
+    </header>
+
+    <table>
+      <tr>
+        <th>REQUEST</th>
+        <th>URL</th>
+        <th>RESPONSE</th>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/movies</td>
+        <td>Return a list of ALL movies to the user</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/movies/[TITLE]</td>
+        <td>Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/movies/[GENRE]/[TITLE]</td>
+        <td>Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/movies/directors/[NAME]</td>
+        <td>Return data about a director (bio, birth year, death year) by name</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/users</td>
+        <td>Allow new users to register</td>
+      </tr>
+      <tr>
+        <td>PUT</td>
+        <td>/users/[USERNAME]</td>
+        <td>Allow users to update their user info (username)</td>
+      </tr>
+      <tr>
+        <td>PUT</td>
+        <td>/users/[USERNAME]/movies/[TITLE]</td>
+        <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</td>
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>/users/[USERNAME]/movies/[TITLE]</td>
+        <td>Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)</td>
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>/users/[USERNAME]</td>
+        <td>Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)</td>
+      </tr>
+    </table>
+  </body>
+</html>
