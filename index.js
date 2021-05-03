@@ -1,7 +1,18 @@
 const express = require('express'),
-      morgan = require('morgan');
+      morgan = require('morgan'),
+      mongoose = require('mongoose'),
+      bodyParser = require('body-parser');
+
+const Models = require('./models.js');
+
+const Movies = Models.Movie,
+      Users = Models.User;
 
 const app  = express();
+
+app.use(bodyParser.json());
+
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { userNewUrlParser: true, useUnifiedTopology: true });
 
 let topTenMovies = [
   {
