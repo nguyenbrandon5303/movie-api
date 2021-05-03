@@ -49,6 +49,9 @@
             description: "The Godfather is an American film series that consists of three crime films directed by Francis Ford Coppola inspired by the 1969 novel of the same name by Italian American author Mario Puzo." <br>
             genre: "Crime, Drama" <br>
             director: "Francis Ford Coppola" <br>
+            actors: "Marlon Brando", "Al Pacino", "James Caan" <br>
+            imagepath: thegodfather.png <br>
+            featured: true <br>
         </td>
       </tr>
       <tr>
@@ -70,8 +73,8 @@
         <td>None</td>
         <td>A JSON object holding the data of the director by name. Example: <br>
             name: "Francis Ford Coppola" <br>
+            bio: "Francis Ford Coppola is an American film director, producer and screenwriter." <br>
             birth year: "1962" <br>
-            death year: "present" <br>
         </td>
       </tr>
       <tr>
@@ -80,27 +83,31 @@
         <td>POST</td>
         <td>None</td>
         <td>A JSON object holding data about the new user structured like: <br>
-            username: "johnsmith448" <br>
-            password: "password123" <br>
-            email: johnsmith448@gmail.com <br>
+            Username: "johnsmith448" <br>
+            Password: "password123" <br>
+            Email: "johnsmith448@gmail.com" <br>
+            Birthday: 1990-01-01 <br>
         </td>
         <td>A JSON object holding data about the new user with an ID: <br>
             id: 3 <br>
-            username: "johnsmith448" <br>
-            password: "password123" <br>
-            email: johnsmith448@gmail.com <br>
+            Username: "johnsmith448" <br>
+            Password: "password123" <br>
+            Email: "johnsmith448@gmail.com" <br>
+            Birthday: 1990-01-01 <br>
         </td>
       </tr>
       <tr>
-        <td>Allow users to update their user info (username)</td>
+        <td>Allow users to update their user info by username</td>
         <td>/users/[USERNAME]</td>
         <td>PUT</td>
         <td>/users/:USERNAME</td>
-        <td>A JSON object holding the new username structured like: <br>
+        <td>A JSON object holding the new info structured like: <br>
             username: "newjohnsmith448" <br>
+            password: "newpassword" <br>
         </td>
         <td>A JSON object holding the new username: <br>
             username: "newjohnsmith448" <br>
+            password: "newpassword" <br>
         </td>
       </tr>
       <tr>

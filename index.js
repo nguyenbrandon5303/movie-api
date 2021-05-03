@@ -8,6 +8,8 @@ const Models = require('./models.js');
 const Movies = Models.Movie,
       Users = Models.User;
 
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
 const app  = express();
 
 app.use(bodyParser.json());
@@ -54,18 +56,29 @@ app.use((err, req, res, next) => {
 
 app.use(express.static('public'));
 
-mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
-
 //Get requests
 app.get('/', (req, res) => {
   res.send('Welcome to a movie app.');
 });
 
 app.get('/movies', (req, res) => {
-  res.send('Successful GET request returning all movies')
+  Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      res.status(500).send('Error: ' + err);
+    });
 });
 app.get('/movies/:title', (req, res) => {
-  res.send('Successful GET request returning data of single movie by title')
+  Movies.findOne({ Title: req.params.Title })
+    .then((movie) => {
+      res.json(movie);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 app.get('/movies/:genre/:title', (req, res) => {
   res.send('Successful GET request returning data about genre by title')
@@ -129,6 +142,21 @@ app.post('/users', (req, res) => {
       res.status(500).send('Error: ' + error);
     });
 });
+// Add a movie to a user's list of favorites
+app.post('/users/:Username/Movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, {
+     $push: { Favorite: req.params.MovieID }
+   },
+   { new: true }, // This line makes sure that the updated document is returned
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
+});
 // Update a user's info, by username
 app.put('/users/:Username', (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
@@ -156,8 +184,20 @@ app.put('/users/:username/movies/:title', (req, res) => {
 app.delete('/users/:username/movies/:title', (req, res) => {
   res.send('Successful DELETE request removing movie from user\'s list of favorite movies')
 });
-app.delete('/users/:username', (req, res) => {
-  res.send('Successful DELETE request removing user')
+// Delete a user by username
+app.delete('/users/:Username', (req, res) => {
+  Users.findOneAndRemove({ Username: req.params.Username })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(req.params.Username + ' was not found');
+      } else {
+        res.status(200).send(req.params.Username + ' was deleted.');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 //listening for requests
