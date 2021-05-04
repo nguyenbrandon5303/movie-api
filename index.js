@@ -221,6 +221,21 @@ app.delete('/users/:Username', (req, res) => {
       res.status(500).send('Error: ' + err);
     });
 });
+// Delete a user by id
+// app.delete('/users/:id', (req, res) => {
+//   Users.findOneAndRemove({ _id: req.params.id })
+//     .then((user) => {
+//       if (!user) {
+//         res.status(400).send(req.params.id + ' was not found');
+//       } else {
+//         res.status(200).send(req.params.id + ' was deleted.');
+//       }
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });
 
 //listening for requests
 app.listen(8080, () => {
