@@ -192,7 +192,7 @@ app.put('/users/:Username', (req, res) => {
     }
   });
 });
-app.delete('/users/:username/movies/:MovieID', (req, res) => {
+app.delete('/users/:Username/movies/:MovieID', (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
      $pull: { Favorite: req.params.MovieID }
    },
@@ -206,14 +206,14 @@ app.delete('/users/:username/movies/:MovieID', (req, res) => {
     }
   });
 });
-// Delete a user by username
-app.delete('/users/:Username', (req, res) => {
-  Users.findOneAndRemove({ Username: req.params.Username })
+// Delete a user by id
+app.delete('/users/:id', (req, res) => {
+  Users.findOneAndRemove({ _id: req.params.id })
     .then((user) => {
       if (!user) {
-        res.status(400).send(req.params.Username + ' was not found');
+        res.status(400).send(req.params.id + ' was not found');
       } else {
-        res.status(200).send(req.params.Username + ' was deleted.');
+        res.status(200).send(req.params.id + ' was deleted.');
       }
     })
     .catch((err) => {
@@ -221,21 +221,6 @@ app.delete('/users/:Username', (req, res) => {
       res.status(500).send('Error: ' + err);
     });
 });
-// Delete a user by id
-// app.delete('/users/:id', (req, res) => {
-//   Users.findOneAndRemove({ _id: req.params.id })
-//     .then((user) => {
-//       if (!user) {
-//         res.status(400).send(req.params.id + ' was not found');
-//       } else {
-//         res.status(200).send(req.params.id + ' was deleted.');
-//       }
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.status(500).send('Error: ' + err);
-//     });
-// });
 
 //listening for requests
 app.listen(8080, () => {
