@@ -1,7 +1,8 @@
 const express = require('express'),
       morgan = require('morgan'),
       mongoose = require('mongoose'),
-      bodyParser = require('body-parser');
+      bodyParser = require('body-parser'),
+      passport = require('passport');
 
 const Models = require('./models.js');
 
@@ -13,6 +14,9 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, 
 const app  = express();
 
 app.use(bodyParser.json());
+
+let auth = require('./auth')(app);
+requre('./passport');
 
 // let topTenMovies = [
 //   {
