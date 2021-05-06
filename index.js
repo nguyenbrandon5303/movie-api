@@ -2,7 +2,8 @@ const express = require('express'),
       morgan = require('morgan'),
       mongoose = require('mongoose'),
       bodyParser = require('body-parser'),
-      passport = require('passport');
+      passport = require('passport'),
+      cors = require('cors');
 
 const Models = require('./models.js');
 
@@ -19,38 +20,7 @@ app.use(morgan('common'));
 let auth = require('./auth')(app);
 require('./passport');
 
-// let topTenMovies = [
-//   {
-//     title: "John Wick"
-//   },
-//   {
-//     title: "Spirited Away"
-//   },
-//   {
-//     title: "Spider-Man: Into the Spider-Verse"
-//   },
-//   {
-//     title: "The Hateful Eight"
-//   },
-//   {
-//     title: "The Godfather"
-//   },
-//   {
-//     title: "Pulp Fiction"
-//   },
-//   {
-//     title: "Batman: The Dark Knight Returns (Part One + Part Two)"
-//   },
-//   {
-//     title: "Scarface"
-//   },
-//   {
-//     title: "The Death of Superman"
-//   },
-//   {
-//     title: "Logan"
-//   },
-// ];
+app.use(cors());
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -135,6 +105,7 @@ app.get('/users/:Username', (req, res) => {
 }
 */
 app.post('/users', (req, res) => {
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -143,15 +114,15 @@ app.post('/users', (req, res) => {
         Users
           .create({
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
           .then((user) =>{res.status(201).json(user) })
-        .catch((error) => {
-          console.error(error);
-          res.status(500).send('Error: ' + error);
-        })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+          })
       }
     })
     .catch((error) => {
