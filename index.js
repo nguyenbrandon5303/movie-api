@@ -175,7 +175,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false}),
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    
+
     let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOneAndUpdate({ Username: req.params.Username }, {
       $set:
@@ -227,6 +227,7 @@ app.delete('/users/:id', passport.authenticate('jwt', { session: false}), (req, 
 });
 
 //listening for requests
-app.listen(8080, () => {
-  console.log('App is listening on port 8080.');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0', () => {
+  console.log('App is listening on port ' + port + '.');
 });
