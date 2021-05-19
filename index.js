@@ -20,11 +20,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(morgan('common'));
 
-let auth = require('./auth')(app);
-require('./passport');
-
 // Allow requests from all origins
 app.use(cors());
+
+let auth = require('./auth')(app);
+require('./passport');
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
