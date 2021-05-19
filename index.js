@@ -38,8 +38,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to a movie app.');
 });
 
-//passport.authenticate('jwt', { session: false}), add in after login form is created with React
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
