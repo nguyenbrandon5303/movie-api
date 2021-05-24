@@ -211,14 +211,14 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
       }
     });
 });
-// Delete a user by id
-app.delete('/users/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Users.findOneAndRemove({ _id: req.params.id })
+// Delete a user by username
+app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
       if (!user) {
-        res.status(400).send(req.params.id + ' was not found');
+        res.status(400).send(req.params.Username + ' was not found');
       } else {
-        res.status(200).send(req.params.id + ' was deleted.');
+        res.status(200).send(req.params.Username + ' was deleted.');
       }
     })
     .catch((err) => {
